@@ -16,9 +16,24 @@
 }
 
 .navLi {
-  @apply mx-6 hover:text-blue-800 transition text-sm cursor-pointer;
+  @apply mx-2 px-4 py-2 rounded-lg text-sm hover:transition duration-500 hover:underline hover:bg-gray-200 cursor-pointer;
 }
 
 .btn {
-  @apply px-6 py-2 rounded-md hover:transition duration-300 hover:opacity-80 bg-black text-white text-sm cursor-pointer;
+  @apply px-6 py-2 rounded-md hover:transition duration-500 hover:opacity-80 bg-black text-white text-sm cursor-pointer;
 }
+
+.roboto {
+  font-family:var(--font-roboto)
+}
+
+.merriweather {
+  font-family:var(--font-merriweather)
+}
+
+.inter {
+  font-family:var(--font-inter)
+}
+
+
+

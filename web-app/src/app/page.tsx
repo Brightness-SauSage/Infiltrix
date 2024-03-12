@@ -1,10 +1,12 @@
+import { NavBar } from "./components/NavBar";
+import { MainPage } from "./components/MainPage";
 
-import {NavBar} from "./components/NavBar";
 
 export default function Home() {
   return (
-
-     <NavBar />
-   
+    <main>
+      <NavBar />
+      <MainPage />
+    </main>
   );
 }

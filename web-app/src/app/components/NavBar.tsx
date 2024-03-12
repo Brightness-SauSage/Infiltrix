@@ -3,7 +3,7 @@
 export const NavBar = () => {
     return (
     
-        <div className="navBar">
+        <div className="navBar roboto">
           <div className="navContainer">
   
             <div className="logo">
