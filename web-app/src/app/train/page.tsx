@@ -1,14 +1,14 @@
 
 export default function MainPage () {
-    
+
     return (
         <div className="flex flex-col items-center ml-2 mr-2 mt-10 mb-0 md:mt-20 md:ml-5 md:mr-5 lg:mt-20 lg:ml-24 lg:mr-24">
           <div className="flex flex-col items-center w-full m-10">
             <div className="text-black text-4xl merriweather font-normal m-2 md:text-5xl lg:text-6xl">
-              Message Spam Detector
+              Help Us Improve
             </div>
             <div className="text-gray-400 text-4xl merriweather font-normal m-2 md:text-5xl lg:text-6xl">
-              for everyone!
+              Our model!
             </div>
           </div>
     <div>
