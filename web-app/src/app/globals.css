@@ -3,24 +3,16 @@
 @tailwind utilities;
 
 
-.navBar {
-  @apply p-4 bg-gray-50 shadow; 
-}
-
-.navContainer {
-  @apply flex items-center justify-between;
-}
-
 .logo {
-  @apply text-black text-2xl inline cursor-default pl-20 font-bold;
+  @apply px-3 text-xl text-black inline cursor-default md:pl-6 font-bold;
 }
 
 .navLi {
   @apply mx-2 px-4 py-2 rounded-lg text-sm hover:transition duration-500 hover:underline hover:bg-gray-200 cursor-pointer;
 }
 
-.btn {
-  @apply px-3 md:px-6 py-2 rounded-md hover:transition duration-500 hover:opacity-80 bg-black text-white text-sm cursor-pointer;
+.btn1 {
+  @apply px-2 py-2 md:px-6 rounded-md hover:transition duration-500 hover:opacity-80 bg-black text-white text-sm cursor-pointer;
 }
 
 .roboto {
