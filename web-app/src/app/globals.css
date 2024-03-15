@@ -27,5 +27,27 @@
   font-family:var(--font-inter)
 }
 
+@layer utilities {
+  .saturate-150 {
+    filter: saturate(200%);
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s;
+}
+
 
 

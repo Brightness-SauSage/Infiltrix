@@ -4,15 +4,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   
-  const handleClick = () => {
-  setIsMenuOpen(!isMenuOpen)
-}
-
   return (
 
-    <div className="navbar bg-gray-100">
+    <div className="navbar rounded-box bg-gray-100 glass">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -22,11 +17,9 @@ export default function NavBar() {
         <li>
           <Link href="/">Home</Link>
         </li>
+        
         <li>
-        <Link href="/">About Us</Link>
-        </li>
-        <li>
-        <Link href="/train">Train Model</Link>
+        <Link href="/train">Train our model</Link>
         </li>
       </ul>
     </div>
@@ -37,11 +30,9 @@ export default function NavBar() {
     <li>
           <Link href="/">Home</Link>
         </li>
+        
         <li>
-        <Link href="/">About Us</Link>
-        </li>
-        <li>
-        <Link href="/train">Train Model</Link>
+        <Link href="/train">Train our model</Link>
         </li>
     </ul>
   </div>
