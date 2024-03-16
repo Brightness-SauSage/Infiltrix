@@ -3,7 +3,7 @@ import pickle
 
 app = Flask(__name__)
 
-with open('Capstone\model.pkl', 'rb') as f:
+with open('model.pkl', 'rb') as f:
     detection = pickle.load(f)
 
 @app.route('/predict', methods=['POST'])
