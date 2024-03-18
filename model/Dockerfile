@@ -36,11 +36,19 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
 
-# Switch to the non-privileged user to run the application.
-USER appuser
+# Create NLTK data directory and set permissions
+RUN mkdir -p /app/nltk_data
+RUN chmod -R 777 /app/nltk_data
+
+# Set NLTK_DATA environment variable
+ENV NLTK_DATA /app/nltk_data
 
 # Copy the source code into the container.
 COPY . .
+RUN chmod -R 777 .
+
+# Switch to the non-privileged user to run the application.
+USER appuser
 
 # Expose the port that the application listens on.
 EXPOSE 8000
