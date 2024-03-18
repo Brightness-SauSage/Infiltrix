@@ -4,7 +4,7 @@
 
 
 .logo {
-  @apply px-3 text-xl text-black inline cursor-default md:pl-6 font-bold;
+  @apply px-3 text-xl md:text-2xl inline cursor-default md:pl-6 font-bold;
 }
 
 .navLi {
