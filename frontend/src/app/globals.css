@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .logo {
   @apply px-3 text-xl md:text-2xl inline cursor-default md:pl-6 font-bold;
 }
@@ -16,15 +15,15 @@
 }
 
 .roboto {
-  font-family:var(--font-roboto)
+  font-family: var(--font-roboto);
 }
 
 .merriweather {
-  font-family:var(--font-merriweather)
+  font-family: var(--font-merriweather);
 }
 
 .inter {
-  font-family:var(--font-inter)
+  font-family: var(--font-inter);
 }
 
 @layer utilities {
@@ -48,7 +47,3 @@
 .animate-blink {
   animation: blink 1s;
 }
-
-
-
-
