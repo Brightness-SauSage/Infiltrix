@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { KeyboardEvent } from "react";
+import { ChangeEvent } from 'react';
 
 export default function Home() {
   const [inputValue, setInputValue] = useState('');
@@ -27,14 +28,16 @@ export default function Home() {
     }
   };
 
-  function handleCheckboxChange(checkbox) {
-    const checkboxes = document.querySelectorAll('.checkbox');
+  function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
+    const checkbox = event.target as HTMLInputElement;
+    const checkboxes = document.querySelectorAll<HTMLInputElement>('.checkbox');
     checkboxes.forEach((cb) => {
       if (cb !== checkbox) {
         cb.checked = false;
       }
     });
   }
+  
 
   return (
     <main>
@@ -82,20 +85,20 @@ export default function Home() {
 
 <div className="form-control">
   <div className="label cursor-pointer">
-    <label className="label-text">Spam</label> 
-    <input type="checkbox" name="spam" className="checkbox" onchange="handleCheckboxChange(this)" />
+    <label className="label-text ">Spam</label> 
+    <input type="checkbox" name="spam" className="checkbox" onChange={handleCheckboxChange}/>
   </div>
   <div className="label cursor-pointer">
     <label className="label-text">Not Spam</label> 
-    <input type="checkbox" name="not-spam" className="checkbox" onchange="handleCheckboxChange(this)" />
+    <input type="checkbox" name="not-spam" className="checkbox" onChange={handleCheckboxChange}/>
   </div>
   <div className="label cursor-pointer">
     <label className="label-text">Smashing</label> 
-    <input type="checkbox" name="smashing" className="checkbox" onchange="handleCheckboxChange(this)" />
+    <input type="checkbox" name="smashing" className="checkbox" onChange={handleCheckboxChange}/>
   </div>
 </div>
 
-<div className="absolute top-110 left-50">
+<div className="absolute top-200 left-50">
                 <button 
                   className="bg-gray-400 rounded-full hover:transition duration-500 hover:bg-gray-500"
                   onClick={handleSubmit}
