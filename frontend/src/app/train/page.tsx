@@ -27,6 +27,15 @@ export default function Home() {
     }
   };
 
+  function handleCheckboxChange(checkbox) {
+    const checkboxes = document.querySelectorAll('.checkbox');
+    checkboxes.forEach((cb) => {
+      if (cb !== checkbox) {
+        cb.checked = false;
+      }
+    });
+  }
+
   return (
     <main>
       <div className="flex flex-col items-center ml-2 mr-2 mt-10 mb-0 md:mt-20 md:ml-5 md:mr-5 lg:mt-20 lg:ml-24 lg:mr-24">
@@ -54,7 +63,39 @@ export default function Home() {
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress} // Add key press event handler
               />
-              <div className="absolute top-2 right-2">
+              
+            </div>
+          </div>
+        </div>
+
+        {showError && (
+          <div className="font-thin text-xs text-red-500 m-2 inter">
+            The field can't be empty!
+          </div>
+        )}
+
+        {!showError && (
+          <div className="font-thin text-xs text-gray-400 m-2 inter">
+            Try pasting something!
+          </div>
+        )}
+
+<div className="form-control">
+  <div className="label cursor-pointer">
+    <label className="label-text">Spam</label> 
+    <input type="checkbox" name="spam" className="checkbox" onchange="handleCheckboxChange(this)" />
+  </div>
+  <div className="label cursor-pointer">
+    <label className="label-text">Not Spam</label> 
+    <input type="checkbox" name="not-spam" className="checkbox" onchange="handleCheckboxChange(this)" />
+  </div>
+  <div className="label cursor-pointer">
+    <label className="label-text">Smashing</label> 
+    <input type="checkbox" name="smashing" className="checkbox" onchange="handleCheckboxChange(this)" />
+  </div>
+</div>
+
+<div className="absolute top-110 left-50">
                 <button 
                   className="bg-gray-400 rounded-full hover:transition duration-500 hover:bg-gray-500"
                   onClick={handleSubmit}
@@ -74,21 +115,8 @@ export default function Home() {
                   </svg>
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
 
-        {showError && (
-          <div className="font-thin text-xs text-red-500 m-2 inter">
-            The field can't be empty!
-          </div>
-        )}
 
-        {!showError && (
-          <div className="font-thin text-xs text-gray-400 m-2 inter">
-            Try pasting something!
-          </div>
-        )}
 
         <div
           className="mt-10 h-96 w-screen"
