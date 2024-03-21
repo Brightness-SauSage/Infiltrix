@@ -47,3 +47,8 @@
 .animate-blink {
   animation: blink 1s;
 }
+
+.text-phone {
+  font-size: 1.6rem;
+  line-height: 2.25rem;
+}

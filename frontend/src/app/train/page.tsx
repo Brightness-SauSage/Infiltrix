@@ -1,20 +1,22 @@
-'use client'
+"use client";
 
 import { useState } from "react";
 import { KeyboardEvent } from "react";
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from "react";
 
 export default function Home() {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [showError, setShowError] = useState(false);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setInputValue(event.target.value);
-    setShowError(false); // Reset error state when input changes
+    setShowError(false);
   };
 
   const handleSubmit = () => {
-    if (inputValue.trim() === '') {
+    if (inputValue.trim() === "") {
       setShowError(true); // Show error if input is empty
     } else {
       // Handle submission
@@ -22,86 +24,97 @@ export default function Home() {
     }
   };
 
-  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (event.key === "Enter") {
       handleSubmit();
     }
   };
 
   function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
     const checkbox = event.target as HTMLInputElement;
-    const checkboxes = document.querySelectorAll<HTMLInputElement>('.checkbox');
+    const checkboxes = document.querySelectorAll<HTMLInputElement>(".checkbox");
     checkboxes.forEach((cb) => {
       if (cb !== checkbox) {
         cb.checked = false;
       }
     });
   }
-  
 
   return (
-    <main>
-      <div className="flex flex-col items-center ml-2 mr-2 mt-10 mb-0 md:mt-20 md:ml-5 md:mr-5 lg:mt-20 lg:ml-24 lg:mr-24">
-        <div className="flex flex-col items-center w-full m-10">
-          <div className="text-black text-4xl merriweather font-normal m-2 md:text-5xl lg:text-6xl">
-            Help Us Improve
+    <main className="bg-white">
+      <div className="gap-4 min-h-[480px] flex flex-col md:flex-row-reverse items-center justify-center mx-4 md:mx-8 lg:mx-12">
+        {/* Title */}
+        <div className="flex flex-col items-center w-full text-3xl md:text-4xl lg:text-5xl mt-20 md:mt-0">
+          {/* Title */}
+          <div className="text-black merriweather font-normal mb-2 ">
+            Help us Improve
           </div>
-          <div className="text-gray-400 text-4xl merriweather font-normal m-2 md:text-5xl lg:text-6xl">
-            Our model!
+          {/* Subtitle */}
+          <div className="text-gray-400 merriweather font-normal mb-2 relative">
+            Our Model
+            <span className="animate-blink">!</span>
           </div>
-        </div>
-        <div>
-          <div className="container flex justify-center items-center">
-            <div className="relative">
-              <div className="absolute top-4 left-3">
-                <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
-              </div>
+          <div className="form-control m-4 w-28">
+            <div className="label cursor-pointer border rounded-xl my-1">
+              <label className="label-text text-gray-400">Spam</label>
               <input
-                type="text"
-                className={`inter font-light text-base border ${
-                  showError ? 'border-red-500' : 'border-gray-300'
-                } h-12 w-96 pl-6 pr-20 md:h-12 md:w-96 md:pl-6 md:pr-20 rounded-full z-0 focus:shadow focus:outline-none`}
-                placeholder="paste your message here"
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress} // Add key press event handler
+                type="checkbox"
+                name="spam"
+                className="checkbox"
+                onChange={handleCheckboxChange}
               />
-              
+            </div>
+            <div className="label cursor-pointer border rounded-xl my-1">
+              <label className="label-text text-gray-400">Not Spam</label>
+              <input
+                type="checkbox"
+                name="not-spam"
+                className="checkbox"
+                onChange={handleCheckboxChange}
+              />
+            </div>
+            <div className="label cursor-pointer border rounded-xl my-1">
+              <label className="label-text text-gray-400">Smashing</label>
+              <input
+                type="checkbox"
+                name="smashing"
+                className="checkbox"
+                onChange={handleCheckboxChange}
+              />
             </div>
           </div>
         </div>
 
-        {showError && (
-          <div className="font-thin text-xs text-red-500 m-2 inter">
-            The field can't be empty!
-          </div>
-        )}
-
-        {!showError && (
-          <div className="font-thin text-xs text-gray-400 m-2 inter">
-            Try pasting something!
-          </div>
-        )}
-
-<div className="form-control">
-  <div className="label cursor-pointer">
-    <label className="label-text ">Spam</label> 
-    <input type="checkbox" name="spam" className="checkbox" onChange={handleCheckboxChange}/>
-  </div>
-  <div className="label cursor-pointer">
-    <label className="label-text">Not Spam</label> 
-    <input type="checkbox" name="not-spam" className="checkbox" onChange={handleCheckboxChange}/>
-  </div>
-  <div className="label cursor-pointer">
-    <label className="label-text">Smashing</label> 
-    <input type="checkbox" name="smashing" className="checkbox" onChange={handleCheckboxChange}/>
-  </div>
-</div>
-
-<div className="absolute top-200 left-50">
-                <button 
+        {/* Input area */}
+        <div className="flex flex-col justify-center items-center mb-6 md:m-10">
+          {/* Input field */}
+          <div className="relative">
+            {/* Search icon */}
+            <div className="absolute top-4 left-30">
+              <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
+            </div>
+            {/* Textarea */}
+            <div className="max-w-2xl mx-auto">
+              <textarea
+                id="message"
+                className={`${
+                  showError ? "border-red-500" : "border-gray-300"
+                } pr-14 block p-2.5 transform lg:w-[520px] md:w-[400px] w-[300px] md:h-[300px] h-[120px] text-md text-gray-700 bg-white rounded-lg border border-gray-300 z-0 focus:shadow focus:outline-none`}
+                placeholder="paste your message here"
+                value={inputValue}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+              ></textarea>
+            </div>
+            {/* Submit button */}
+            <div className="absolute bottom-2 right-3">
+              <div className="tooltip" data-tip="Submit">
+                <button
                   className="bg-gray-400 rounded-full hover:transition duration-500 hover:bg-gray-500"
                   onClick={handleSubmit}
+                  aria-label="Submit"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -118,14 +131,24 @@ export default function Home() {
                   </svg>
                 </button>
               </div>
+            </div>
+          </div>
 
-
-
-        <div
-          className="mt-10 h-96 w-screen"
-          style={{ background: 'linear-gradient(70deg, #a855f7, #ec4899)' }}
-        ></div>
+          {/* Error messages */}
+          {showError && (
+            <div className="font-thin text-xs text-red-500 m-2 inter">
+              The field can't be empty!
+            </div>
+          )}
+          {!showError && (
+            <div className="font-thin text-xs text-gray-400 m-2 inter"></div>
+          )}
+        </div>
       </div>
+      <div
+        className="h-96 w-screen"
+        style={{ background: "linear-gradient(70deg, #a855f7, #ec4899)" }}
+      ></div>
     </main>
   );
 }
