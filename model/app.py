@@ -6,8 +6,6 @@ import scipy.sparse as sp
 
 app = Flask(__name__)
 
-model = pickle.load(open('model.pkl', 'rb'))
-
 @app.route('/api/predict', methods=['POST'])
 
 def predict():
@@ -25,6 +23,7 @@ def predict():
         return bool(re.search(phone_pattern, input_str))
     
     def detection(input_str):
+        model = pickle.load(open('model.pkl', 'rb'))
         user_url = detect_url(input_str)
         user_email = detect_email(input_str)
         user_phone = detect_phone(input_str)
