@@ -85,9 +85,9 @@ export default function Home() {
     <main className="bg-white">
       {/* Header */}
 
-      <div className="flex items-center justify-center h-[480px] ml-20">
-        <div className="w-1/2 h-full flex items-center justify-center">
-          <div className="flex flex-col items-center text-3xl md:text-4xl lg:text-5xl mt-0 whitespace-nowrap">
+      <div className="flex md:flex-row flex-col items-center justify-center h-[450px] md:h-[480px] ml-0 md:ml-20">
+        <div className="md:w-1/2 md:h-full flex items-center justify-center mt-20 md:mt-0">
+          <div className="flex flex-col items-center text-3xl md:text-4xl lg:text-5xl whitespace-nowrap">
             {/* Title */}
             <div className="text-black merriweather font-normal mb-2">
               Message Spam Detector
@@ -100,7 +100,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-1/2 h-full flex items-center justify-center">
+        <div className="h-56 w-[480px] md:w-1/2 md:h-full flex items-center justify-center mt-5 md:mt-0">
           <div className="w-2/3 h-full flex flex-col justify-center">
             <div className="h-2/3 relative">
               <textarea

@@ -1,0 +1,73 @@
+{/* Header */}
+      <div className="gap-4 min-h-[480px] flex flex-col md:flex-row items-center justify-center mx-4 md:mx-8 lg:mx-12">
+        {/* Title */}
+        <div className="flex flex-col items-center text-3xl md:text-4xl lg:text-5xl mt-10 md:mt-0">
+          {/* Title */}
+          <div className="text-black merriweather font-normal mb-2 ">
+            Message Spam Detector
+          </div>
+          {/* Subtitle */}
+          <div className="text-gray-400 merriweather font-normal mb-2 relative">
+            for everyone
+            <span className="animate-blink">!</span>
+          </div>
+        </div>
+
+        {/* Input area */}
+        <div className="flex flex-col justify-center items-center m-10 relative">
+          {/* Input field */}
+          <div className="max-w-2xl w-full relative">
+            {/* Search icon */}
+            <div className="absolute top-4 left-2">
+              <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
+            </div>
+            {/* Textarea */}
+            <textarea
+              id="message"
+              className={`${
+                showError ? "border-red-500" : "border-gray-300"
+              } pr-14 pl-10 p-2.5 w-full md:max-w-lg lg:max-w-xl h-60 md:h-[50vh] text-md text-gray-700 bg-white rounded-lg border z-0 focus:shadow focus:outline-none`}
+              placeholder="Paste your message here"
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+            ></textarea>
+
+            {/* Submit button */}
+            <div className="absolute bottom-2 right-3">
+              <div className="tooltip" data-tip="Submit">
+                <button
+                  className="bg-gray-400 rounded-full hover:bg-gray-500"
+                  onClick={handleSubmit}
+                  aria-label="Submit"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="white"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Error messages */}
+          {showError && (
+            <div className="font-thin text-xs text-red-500 m-2">
+              The field can't be empty!
+            </div>
+          )}
+          {!showError && (
+            <div className="font-thin text-xs text-gray-400 m-2">
+              Try pasting something!
+            </div>
+          )}
+        </div>
+      </div>
