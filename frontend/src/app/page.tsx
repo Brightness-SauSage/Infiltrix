@@ -9,16 +9,16 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [numResult, setNumResult] = useState(1);
+  const [numResult, setNumResult] = useState("");
   const [finalResult, setFinalResult] = useState("");
 
   useEffect(() => {
-    if (numResult === 0) {
+    if (numResult === '0') {
       setFinalResult("Spam");
-    } else if (numResult === 1) {
+    } else if (numResult === '1') {
       setFinalResult("Not spam");
-    } else if (numResult === 2) {
-      setFinalResult("Unknown");
+    } else if (numResult === '2') {
+      setFinalResult("Smishing");
     } else {
       setFinalResult("Unknown");
     }
@@ -31,23 +31,37 @@ export default function Home() {
     setShowError(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (inputValue.trim() === "") {
       setShowError(true);
     } else {
       setModalText(inputValue);
+      try {
+        const response = await fetch('/api/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Text: inputValue })
+        });
+        const data = await response.json();
+        setNumResult(data.prediction);
+        sentResult();
+    } catch (error) {
+        console.error('Error:', error);
+    }
 
       //sent to back end and get result as numResult
       //setFinalResult("Spam");
-      sentResult();
+      
     }
   };
 
   const sentResult = () => {
     //recieve
-    setNumResult(1);
-
-    //console.log(finalResult);
+    //setNumResult(1);
+    
+    console.log(finalResult);
 
     openModal();
     setIsLoading(true);
