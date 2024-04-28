@@ -29,7 +29,7 @@ def predict():
         user_email = detect_email(input_str)
         user_phone = detect_phone(input_str)
 
-        input_str_tfidf = vectorizer.fit_transform([input_str])
+        input_str_tfidf = vectorizer.transform([input_str])
 
         input_str_combined = sp.hstack((input_str_tfidf, [[user_url, user_email, user_phone]]), format='csr')
 
@@ -42,11 +42,11 @@ def predict():
         else:
             return 1 #'not spam'
     
-    data = request.get_json(force=True)
+    data = request.get_json(force= True)
     input_str = data['Text']
     prediction = detection(input_str)
     
-    return jsonify({'prediction': prediction})
+    return jsonify({"prediction": prediction})
 
 if __name__ == '__main__':
     app.run(debug=True)
