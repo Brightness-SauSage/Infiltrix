@@ -35,6 +35,7 @@ export default function Home() {
   function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
     const checkbox = event.target as HTMLInputElement;
     const checkboxes = document.querySelectorAll<HTMLInputElement>(".checkbox");
+
     checkboxes.forEach((cb) => {
       if (cb !== checkbox) {
         cb.checked = false;
@@ -44,6 +45,7 @@ export default function Home() {
 
   return (
     <main className="bg-white">
+      {" "}
       <div className="gap-4 min-h-[480px] flex flex-col md:flex-row-reverse items-center justify-center mx-4 md:mx-8 lg:mx-12">
         {/* Title */}
         <div className="flex flex-col items-center w-full text-3xl md:text-4xl lg:text-5xl mt-20 md:mt-0">
@@ -52,7 +54,7 @@ export default function Home() {
             Help us Improve
           </div>
           {/* Subtitle */}
-          <div className="text-gray-400 merriweather font-normal mb-2 relative">
+          <div className="text-gray-400 merriweather font-normal mb-4 relative">
             Our Model
             <span className="animate-blink">!</span>
           </div>
@@ -66,15 +68,7 @@ export default function Home() {
                 onChange={handleCheckboxChange}
               />
             </div>
-            <div className="label cursor-pointer border rounded-xl my-1">
-              <label className="label-text text-gray-400">Not Spam</label>
-              <input
-                type="checkbox"
-                name="not-spam"
-                className="checkbox"
-                onChange={handleCheckboxChange}
-              />
-            </div>
+
             <div className="label cursor-pointer border rounded-xl my-1">
               <label className="label-text text-gray-400">Smashing</label>
               <input
@@ -83,6 +77,14 @@ export default function Home() {
                 className="checkbox"
                 onChange={handleCheckboxChange}
               />
+            </div>
+          </div>
+          <div className="flex justify-center md:block hidden mt-2">
+            <div
+              className="btn bg-neutral text-white lg:w-96 md:w-72"
+              onClick={handleSubmit}
+            >
+              Submit
             </div>
           </div>
         </div>
