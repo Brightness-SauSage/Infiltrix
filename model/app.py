@@ -24,12 +24,12 @@ def predict():
     
     def detection(input_str):
         model = pickle.load(open('model.pkl', 'rb'))
+        vectorizer = pickle.load(open('vectorizer.pkl', 'rb'))
         user_url = detect_url(input_str)
         user_email = detect_email(input_str)
         user_phone = detect_phone(input_str)
 
-        vectorizer = TfidfVectorizer()
-        input_str_tfidf = vectorizer.transform([input_str])
+        input_str_tfidf = vectorizer.fit_transform([input_str])
 
         input_str_combined = sp.hstack((input_str_tfidf, [[user_url, user_email, user_phone]]), format='csr')
 
