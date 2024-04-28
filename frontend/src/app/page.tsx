@@ -9,15 +9,15 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [numResult, setNumResult] = useState("");
+  const [numResult, setNumResult] = useState(0);
   const [finalResult, setFinalResult] = useState("");
 
   useEffect(() => {
-    if (numResult === '0') {
+    if (numResult === 0) {
       setFinalResult("Spam");
-    } else if (numResult === '1') {
+    } else if (numResult === 1) {
       setFinalResult("Not spam");
-    } else if (numResult === '2') {
+    } else if (numResult === 2) {
       setFinalResult("Smishing");
     } else {
       setFinalResult("Unknown");
@@ -37,12 +37,12 @@ export default function Home() {
     } else {
       setModalText(inputValue);
       try {
-        const response = await fetch('/api/predict', {
+        const response = await fetch('https://3.25.102.108:80/api/predict', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ Text: inputValue })
+            body: JSON.stringify({ "Text": inputValue })
         });
         const data = await response.json();
         setNumResult(data.prediction);
