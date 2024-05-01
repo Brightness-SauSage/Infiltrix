@@ -14,13 +14,13 @@ export default function Home() {
 
   useEffect(() => {
     if (numResult === 0) {
-      setFinalResult("Spam");
+      setFinalResult("Not Spam");
     } else if (numResult === 1) {
-      setFinalResult("Not spam");
+      setFinalResult("Smishing");
     } else if (numResult === 2) {
-      setFinalResult("Smashing");
+      setFinalResult("Spam");
     } else {
-      setFinalResult("Smashing");
+      setFinalResult("Smishing");
     }
   }, [numResult]);
 
@@ -39,13 +39,13 @@ export default function Home() {
 
       //sent to back end and get result as numResult
       //setFinalResult("Spam");
-      sentResult();
+      getResult();
     }
   };
 
-  const sentResult = () => {
+  const getResult = () => {
     //recieve
-    setNumResult(2);
+    setNumResult(0);
 
     //console.log(finalResult);
 
@@ -85,7 +85,7 @@ export default function Home() {
     <main className="bg-white">
       {/* Header */}
 
-      <div className="flex md:flex-row flex-col items-center justify-center h-[450px] md:h-[480px] ml-0 md:ml-20">
+      <div className="gap-4 flex md:flex-row flex-col items-center justify-center h-[450px] md:h-[480px] ml-0 md:ml-20">
         <div className="md:w-1/2 md:h-full flex items-center justify-center mt-20 md:mt-0">
           <div className="flex flex-col items-center text-3xl md:text-4xl lg:text-5xl whitespace-nowrap">
             {/* Title */}
@@ -101,7 +101,7 @@ export default function Home() {
         </div>
 
         <div className="h-56 w-[480px] md:w-1/2 md:h-full flex items-center justify-center mt-5 md:mt-0">
-          <div className="w-2/3 h-full flex flex-col justify-center">
+          <div className="w-9/12 h-full flex flex-col justify-center">
             <div className="h-2/3 relative">
               <textarea
                 id="message"
@@ -201,16 +201,16 @@ export default function Home() {
                     src={
                       finalResult === "Spam"
                         ? "spam.png"
-                        : finalResult === "Not spam"
+                        : finalResult === "Not Spam"
                         ? "not_spam.png"
-                        : "smashing.png"
+                        : "smishing.png"
                     }
                     alt={
                       finalResult === "Spam"
                         ? "Spam Image"
-                        : finalResult === "Not spam"
+                        : finalResult === "Not Spam"
                         ? "Not Spam Image"
-                        : "Smashing Image"
+                        : "Smishing Image"
                     }
                     className="w-1/2"
                   />

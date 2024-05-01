@@ -1,152 +1,331 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { KeyboardEvent } from "react";
 import { ChangeEvent } from "react";
 
 export default function Home() {
-  const [inputValue, setInputValue] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [showError, setShowError] = useState(false);
+  const [showErrorBox, setShowErrorBox] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [inputType, setInputType] = useState(4);
+
+  useEffect(() => {
+    if (inputType === 4) {
+      const checkboxes =
+        document.querySelectorAll<HTMLInputElement>(".checkbox");
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+    }
+  }, [inputType]);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setInputValue(event.target.value);
+    setUserInput(event.target.value);
     setShowError(false);
+    //setShowErrorBox(false);
   };
 
   const handleSubmit = () => {
-    if (inputValue.trim() === "") {
-      setShowError(true); // Show error if input is empty
+    if (userInput.trim() === "" && inputType === 4) {
+      setShowError(true);
+      setShowErrorBox(true);
+    } else if (userInput.trim() === "") {
+      setShowError(true);
+      setShowErrorBox(false);
+    } else if (inputType === 4) {
+      setShowError(false);
+      setShowErrorBox(true);
     } else {
-      // Handle submission
-      console.log(inputValue);
+      setShowError(false);
+      setShowErrorBox(false);
+      sentResultToBack();
     }
+  };
+
+  const sentResultToBack = () => {
+    console.log("UserInput:", userInput);
+    console.log("InputType", inputType);
+
+    //api
+
+    openModal();
+    setIsLoading(true);
+    simulateLoading();
   };
 
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if (event.key === "Enter") {
+      event.preventDefault(); // Prevent default behavior of the textarea
       handleSubmit();
     }
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    document.body.style.overflow = "auto";
+
+    setUserInput("");
+    setInputType(4);
+  };
+
+  const simulateLoading = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   };
 
   function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
     const checkbox = event.target as HTMLInputElement;
     const checkboxes = document.querySelectorAll<HTMLInputElement>(".checkbox");
 
+    // Uncheck checkboxes other than the one that was clicked
     checkboxes.forEach((cb) => {
       if (cb !== checkbox) {
         cb.checked = false;
       }
     });
+
+    // Update the inputType state based on the clicked checkbox
+    setInputType((prevInputType) => {
+      if (checkbox.checked) {
+        if (checkbox.name === "spam") {
+          //console.log("Input Type: 0");
+          return 0; // If "spam" checkbox is checked, set inputType to 0
+        } else if (checkbox.name === "smishing") {
+          //console.log("Input Type: 1");
+          return 1; // If "smishing" checkbox is checked, set inputType to 1
+        }
+      }
+      //console.log("Input Type: 4");
+      return 4; // Default value if neither checkbox is checked
+    });
+    setShowErrorBox(false);
   }
 
   return (
     <main className="bg-white">
       {" "}
-      <div className="gap-4 min-h-[480px] flex flex-col md:flex-row-reverse items-center justify-center mx-4 md:mx-8 lg:mx-12">
-        {/* Title */}
-        <div className="flex flex-col items-center w-full text-3xl md:text-4xl lg:text-5xl mt-20 md:mt-0">
-          {/* Title */}
-          <div className="text-black merriweather font-normal mb-2 ">
-            Help us Improve
-          </div>
-          {/* Subtitle */}
-          <div className="text-gray-400 merriweather font-normal mb-4 relative">
-            Our Model
-            <span className="animate-blink">!</span>
-          </div>
-          <div className="form-control m-4 w-28">
-            <div className="label cursor-pointer border rounded-xl my-1">
-              <label className="label-text text-gray-400">Spam</label>
-              <input
-                type="checkbox"
-                name="spam"
-                className="checkbox"
-                onChange={handleCheckboxChange}
-              />
-            </div>
-
-            <div className="label cursor-pointer border rounded-xl my-1">
-              <label className="label-text text-gray-400">Smashing</label>
-              <input
-                type="checkbox"
-                name="smashing"
-                className="checkbox"
-                onChange={handleCheckboxChange}
-              />
-            </div>
-          </div>
-          <div className="flex justify-center md:block hidden mt-2">
-            <div
-              className="btn bg-neutral text-white lg:w-96 md:w-72"
-              onClick={handleSubmit}
-            >
-              Submit
-            </div>
-          </div>
-        </div>
-
-        {/* Input area */}
-        <div className="flex flex-col justify-center items-center mb-6 md:m-10">
-          {/* Input field */}
-          <div className="relative">
-            {/* Search icon */}
-            <div className="absolute top-4 left-30">
-              <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
-            </div>
-            {/* Textarea */}
-            <div className="max-w-2xl mx-auto">
+      <div className="gap-0 md:gap-4 flex md:flex-row flex-col-reverse items-center justify-center h-[550px] md:h-[480px] mr-0 md:mr-20">
+        <div className="h-64 w-[480px] md:w-1/2 md:h-full flex items-center justify-center">
+          <div className="w-9/12 h-full flex flex-col justify-center">
+            <div className="h-2/3 relative">
               <textarea
                 id="message"
                 className={`${
                   showError ? "border-red-500" : "border-gray-300"
-                } pr-14 block p-2.5 transform lg:w-[520px] md:w-[400px] w-[300px] md:h-[300px] h-[120px] text-md text-gray-700 bg-white rounded-lg border border-gray-300 z-0 focus:shadow focus:outline-none`}
-                placeholder="paste your message here"
-                value={inputValue}
+                } w-full h-full p-4 border-gray-300 resize-none bg-white rounded-lg border z-0 focus:shadow focus:outline-none`}
+                placeholder="Type your message here..."
+                value={userInput}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
               ></textarea>
-            </div>
-            {/* Submit button */}
-            <div className="absolute bottom-2 right-3">
-              <div className="tooltip" data-tip="Submit">
-                <button
-                  className="bg-gray-400 rounded-full hover:transition duration-500 hover:bg-gray-500"
-                  onClick={handleSubmit}
-                  aria-label="Submit"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="30"
-                    height="30"
-                    fill="white"
-                    className="bi bi-arrow-right-short"
-                    viewBox="0 0 16 16"
+
+              {/* Submit button */}
+              <div className="absolute bottom-2 right-3">
+                <div className="tooltip" data-tip="Submit">
+                  <button
+                    className="bg-gray-400 rounded-full hover:bg-gray-500"
+                    onClick={handleSubmit}
+                    aria-label="Submit"
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
-                    />
-                  </svg>
-                </button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      fill="white"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {showError && (
+              <div className="font-thin text-xs text-red-500 m-2 text-center">
+                The field can't be empty!
+              </div>
+            )}
+            {!showError && (
+              <div className="font-thin text-xs text-gray-400 m-2 text-center">
+                Try pasting something!
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="md:w-1/2 md:h-full flex items-center justify-center mt-20 md:mt-0">
+          <div className="flex flex-col items-center w-full text-3xl md:text-4xl lg:text-5xl">
+            {/* Title */}
+            <div className="text-black merriweather font-normal mb-2 ">
+              Help us Improve
+            </div>
+            {/* Subtitle */}
+            <div className="text-gray-400 merriweather font-normal mb-4">
+              Our Model
+              <span className="animate-blink">!</span>
+            </div>
+
+            <div className="my-4 form-control items-center">
+              <div
+                className={`${
+                  showErrorBox ? "border-red-500" : "border-gray-300"
+                } w-[134px] m-4 label border rounded-xl my-1 flex items-center`}
+              >
+                <div className="flex items-center gap-1">
+                  <div className="icon-wrapper tooltip" data-tip="lorem ...">
+                    <svg
+                      className="w-6 h-6 text-gray-500 hover:text-gray-700 cursor-pointer transition-all duration-300"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+
+                  <label className="label-text text-gray-400">Spam</label>
+                </div>
+
+                <input
+                  type="checkbox"
+                  name="spam"
+                  className="checkbox bg-white border-gray-300"
+                  onChange={handleCheckboxChange}
+                />
+              </div>
+
+              <div
+                className={`${
+                  showErrorBox ? "border-red-500" : "border-gray-300"
+                } w-[134px] m-4 label border rounded-xl my-1 flex items-center`}
+              >
+                <div className="flex items-center gap-1">
+                  <div className="icon-wrapper tooltip" data-tip="lorem ...">
+                    <svg
+                      className="w-6 h-6 text-gray-500 hover:text-gray-700 cursor-pointer transition-all duration-300"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+
+                  <label className="label-text text-gray-400">Smishing</label>
+                </div>
+
+                <input
+                  type="checkbox"
+                  name="smishing"
+                  className="checkbox bg-white border-gray-300"
+                  onChange={handleCheckboxChange}
+                />
+              </div>
+              {showErrorBox && (
+                <div className="mt-2 font-thin text-xs text-red-500 m-2 text-center">
+                  Please select at least one option.
+                </div>
+              )}
+            </div>
+            <div className="justify-center md:block hidden mt-2">
+              <div
+                className="btn bg-neutral text-white lg:w-96 md:w-72"
+                onClick={handleSubmit}
+              >
+                Submit
               </div>
             </div>
           </div>
-
-          {/* Error messages */}
-          {showError && (
-            <div className="font-thin text-xs text-red-500 m-2 inter">
-              The field can't be empty!
-            </div>
-          )}
-          {!showError && (
-            <div className="font-thin text-xs text-gray-400 m-2 inter"></div>
-          )}
         </div>
       </div>
+      {showModal && (
+        <div
+          className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-10"
+          aria-live="assertive"
+        >
+          <div
+            className={`relative bg-white p-8 rounded-lg ${
+              isLoading
+                ? "h-48 w-64 md:h-56 md:w-80"
+                : "h-56 w-80 md:w-96 md:h-72"
+            } flex justify-center items-center`}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeModal}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-600 cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            {/* Loading or result */}
+            {isLoading ? (
+              <div className="text-black">
+                <div className="flex flex-col items-center">
+                  <span className="loading loading-dots w-16 md:w-20"></span>
+                  <p className="font-bold text-xl">Submitting ...</p>
+                </div>
+              </div>
+            ) : (
+              <div className="text-black">
+                <div className="flex flex-col items-center m-2">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/148/148767.png"
+                    alt="submit"
+                    className="w-1/3 m-8"
+                  />
+                  <p className="font-bold text-sm md:text-lg max-h-16 flex flex-col text-black items-center">
+                    Thank you for your submission!
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       <div
         className="h-96 w-screen"
         style={{ background: "linear-gradient(70deg, #a855f7, #ec4899)" }}

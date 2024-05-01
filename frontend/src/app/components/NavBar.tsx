@@ -8,7 +8,7 @@ export default function NavBar() {
     <div className="navbar bg-gray-100">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -39,6 +39,7 @@ export default function NavBar() {
         </div>
         <a className="logo text-xl navbar-center text-black">Infiltrix</a>
       </div>
+      {/*
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1 text-black">
           <li>
@@ -50,8 +51,34 @@ export default function NavBar() {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
-        <button className="btn btn-neutral hidden md:block">Contact us</button>
+  */}
+      <div className="navbar-end hidden md:flex">
+        <ul className="menu menu-horizontal px-1 text-black">
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+
+          <li>
+            <Link href="/train">Train our model</Link>
+          </li>
+        </ul>
+        {/*
+        <ul className="menu menu-horizontal px-1">
+          <li>
+            <details>
+              <summary>Model Version 1.1.1.2</summary>
+              <ul className="p-2 bg-base-100 rounded-t-none">
+                <li>
+                  <a>1.1.1.1</a>
+                </li>
+                <li>
+                  <a>1.1.1.0</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+  */}
       </div>
     </div>
   );
