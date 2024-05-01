@@ -117,6 +117,10 @@ export default function Home() {
   return (
     <main className="bg-white">
       {" "}
+      <div
+        className="h-14 md:h-24 w-screen"
+        style={{ background: "linear-gradient(70deg, #a855f7, #ec4899)" }}
+      ></div>
       <div className="gap-0 md:gap-4 flex md:flex-row flex-col-reverse items-center justify-center h-[550px] md:h-[480px] mr-0 md:mr-20">
         <div className="h-64 w-[480px] md:w-1/2 md:h-full flex items-center justify-center">
           <div className="w-9/12 h-full flex flex-col justify-center">
@@ -327,7 +331,7 @@ export default function Home() {
         </div>
       )}
       <div
-        className="h-96 w-screen"
+        className="h-80 w-screen"
         style={{ background: "linear-gradient(70deg, #a855f7, #ec4899)" }}
       ></div>
     </main>
