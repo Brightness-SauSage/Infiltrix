@@ -230,13 +230,18 @@ export default function Home() {
         </div>
       )}
 
-      {/* Background image */}
+      {/* Background image 
       <div className="h-96 w-screen relative overflow-hidden">
         <img
           src="https://tailwindcss.com/_next/static/media/docs@30.8b9a76a2.avif"
           className="absolute top-0 left-0 transform scale-150 saturate-150"
         />
       </div>
+      */}
+      <div
+        className="h-96 w-screen"
+        style={{ background: "linear-gradient(70deg, #a855f7, #ec4899)" }}
+      ></div>
     </main>
   );
 }
