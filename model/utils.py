@@ -35,8 +35,8 @@ def detection(input_str):
     predicted_label = model.predict(input_str_combined)
 
     if predicted_label == 2:
-        return 0  #'spam'
+        return 2  #'spam'
     elif predicted_label == 1:
-        return 2  #'smishing'
+        return 1  #'smishing'
     else:
-        return 1  #'not spam'
+        return 0  #'not spam'
