@@ -130,3 +130,7 @@ dist
 .pnp.*
 output.csv
 __pycache__
+
+.pem
+model/22frankfert-macbook.pem
+next-env.d.ts
