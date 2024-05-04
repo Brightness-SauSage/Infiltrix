@@ -343,7 +343,6 @@ export default function Home() {
       ></div>
       */}
       <div className="relative">
-        {/* Background with gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 flex justify-center items-center">
           <div className="bg-white rounded-xl shadow-lg lg:h-[580px] w-11/12 md:h-[480px] flex flex-col justify-center">
             <div className="lg:p-8 md:p-10 p-4 gap-0 md:gap-4 flex md:flex-row flex-col-reverse items-center h-[550px] md:h-[480px] mt-10 md:mt-0">
@@ -354,7 +353,7 @@ export default function Home() {
                       id="message"
                       className={`${
                         showError ? "border-red-500" : "border-gray-300"
-                      } w-full h-full p-4 border-gray-300 resize-none bg-white rounded-lg border z-0 focus:shadow focus:outline-none`}
+                      } w-full h-full p-4 border-gray-300 resize-none bg-white rounded-lg border z-0 focus:shadow focus:outline-none absolute`}
                       placeholder="Type your message here..."
                       value={userInput}
                       onChange={handleInputChange}
