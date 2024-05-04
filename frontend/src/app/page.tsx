@@ -21,7 +21,7 @@ export default function Home() {
     } else if (numResult === 2) {
       setFinalResult("Spam");
     } else {
-      setFinalResult("Not Spam");
+      setFinalResult("Smishing");
     }
   }, [numResult]);
 

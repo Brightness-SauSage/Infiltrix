@@ -10,7 +10,7 @@ export default function Home() {
   const [showErrorBox, setShowErrorBox] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [inputType, setInputType] = useState(4);
+  const [inputType, setInputType] = useState(4); //4 represents "NULL" but I can't use null because useState type is int
 
   useEffect(() => {
     if (inputType === 4) {
@@ -27,7 +27,6 @@ export default function Home() {
   ) => {
     setUserInput(event.target.value);
     setShowError(false);
-    //setShowErrorBox(false);
   };
 
   const handleSubmit = () => {
@@ -62,7 +61,7 @@ export default function Home() {
     event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // Prevent default behavior of the textarea
+      event.preventDefault();
       handleSubmit();
     }
   };
@@ -90,25 +89,23 @@ export default function Home() {
     const checkbox = event.target as HTMLInputElement;
     const checkboxes = document.querySelectorAll<HTMLInputElement>(".checkbox");
 
-    // Uncheck checkboxes other than the one that was clicked
     checkboxes.forEach((cb) => {
       if (cb !== checkbox) {
         cb.checked = false;
       }
     });
 
-    // Update the inputType state based on the clicked checkbox
     setInputType((prevInputType) => {
       if (checkbox.checked) {
         if (checkbox.name === "spam") {
           //console.log("Input Type: 0");
-          return 0; // If "spam" checkbox is checked, set inputType to 0
+          return 2;
         } else if (checkbox.name === "smishing") {
           //console.log("Input Type: 1");
-          return 1; // If "smishing" checkbox is checked, set inputType to 1
+          return 1;
         }
       }
-      //console.log("Input Type: 4");
+
       return 4; // Default value if neither checkbox is checked
     });
     setShowErrorBox(false);
