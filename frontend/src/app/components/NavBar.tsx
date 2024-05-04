@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function NavBar() {
   return (
-    <div className="navbar bg-gray-100">
+    <div className="navbar bg-gray-100 text-black">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
