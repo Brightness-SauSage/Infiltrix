@@ -1,20 +1,31 @@
-from flask import Flask, request, jsonify, abort
-import pickle
-from model import detection
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from utils import *
+import supabase
+import database.setting as setting
+from supabase import create_client, Client
 
 app = Flask(__name__)
+CORS(app)
 
-# with open('model.pkl', 'rb') as f:
-#     model = pickle.load(f)
+supabase: Client = create_client(setting.url, setting.key)
 
-@app.route('/predict', methods=['POST'])
+
+@app.route("/api/predict", methods=["POST"])
 def predict():
-    data = request.get_json()
-    input_str = data['text']
-    
-    result = detection(input_str)
+    data = request.get_json(force=True)
+    input_str = data["Text"]
+    prediction = detection(input_str)
 
-    return jsonify({'prediction': result})
+    response = (
+        supabase.table("countries")
+        .insert({"input": input_str, "prediction": prediction})
+        .execute()
+    )
+    print(response)
 
-if __name__ == '__main__':
+    return jsonify({"prediction": prediction})
+
+
+if __name__ == "__main__":
     app.run(debug=True)

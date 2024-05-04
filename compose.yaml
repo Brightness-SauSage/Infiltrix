@@ -11,5 +11,8 @@ services:
   inflitrix-model:
     build:
       context: ./model
+    environment:
+      NODE_ENV: production
     ports:
       - 8000:8000
+
