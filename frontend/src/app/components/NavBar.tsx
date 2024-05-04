@@ -39,19 +39,7 @@ export default function NavBar() {
         </div>
         <a className="logo text-xl navbar-center text-black">Infiltrix</a>
       </div>
-      {/*
-      <div className="navbar-center hidden md:flex">
-        <ul className="menu menu-horizontal px-1 text-black">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
 
-          <li>
-            <Link href="/train">Train our model</Link>
-          </li>
-        </ul>
-      </div>
-  */}
       <div className="navbar-end hidden md:flex">
         <ul className="menu menu-horizontal px-1 text-black">
           <li>
