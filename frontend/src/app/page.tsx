@@ -46,7 +46,7 @@ export default function Home() {
 				});
 				const data = await response.json();
 				setNumResult(data.prediction);
-				sentResult();
+				getResult();
 			} catch (error) {
 				console.error('Error:', error);
 			}
