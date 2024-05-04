@@ -13,6 +13,7 @@ export default function Home() {
   const [finalResult, setFinalResult] = useState("");
 
   useEffect(() => {
+    console.log("useEffect", numResult);
     if (numResult === 0) {
       setFinalResult("Not Spam");
     } else if (numResult === 1) {
@@ -20,7 +21,7 @@ export default function Home() {
     } else if (numResult === 2) {
       setFinalResult("Spam");
     } else {
-      setFinalResult("Smishing");
+      setFinalResult("Not Spam");
     }
   }, [numResult]);
 
@@ -46,6 +47,7 @@ export default function Home() {
         });
         const data = await response.json();
         setNumResult(data.prediction);
+        console.log("Model Predict: ", data.prediction);
         getResult();
       } catch (error) {
         console.error("Error:", error);
@@ -59,9 +61,7 @@ export default function Home() {
 
   const getResult = () => {
     //recieve
-    setNumResult(0);
-
-    console.log(finalResult);
+    ///console.log(finalResult);
 
     openModal();
     setIsLoading(true);
