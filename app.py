@@ -14,17 +14,30 @@ supabase: Client = create_client(setting.url, setting.key)
 @app.route("/api/predict", methods=["POST"])
 def predict():
     data = request.get_json(force=True)
-    input_str = data["Text"]
-    prediction = detection(input_str)
+    message = data["message"]
+    prediction = detection(message)
 
     response = (
-        supabase.table("countries")
-        .insert({"input": input_str, "prediction": prediction})
+        supabase.table("homepage")
+        .insert({"input": message, "prediction": prediction})
         .execute()
     )
     print(response)
 
     return jsonify({"prediction": prediction})
+
+
+@app.route("/api/predict", methods=["POST"])
+def train_model():
+    data = request.get_json(force=True)
+    message = data["message"]
+    message_type = data["MessageType"]
+    response = (
+        supabase.table("train_our_model")
+        .insert({"input": message, "type": message_type})
+        .execute()
+    )
+    print(response)
 
 
 if __name__ == "__main__":
