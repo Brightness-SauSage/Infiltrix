@@ -38,6 +38,7 @@ def train_model():
         .execute()
     )
     print("train our model request submit: ", response)
+    return 200
 
 
 if __name__ == "__main__":
