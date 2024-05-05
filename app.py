@@ -22,12 +22,12 @@ def predict():
         .insert({"input": message, "prediction": prediction})
         .execute()
     )
-    print(response)
+    print("message submit: ", response)
 
     return jsonify({"prediction": prediction})
 
 
-@app.route("/api/predict", methods=["POST"])
+@app.route("/api/train-model", methods=["POST"])
 def train_model():
     data = request.get_json(force=True)
     message = data["message"]
@@ -37,7 +37,7 @@ def train_model():
         .insert({"input": message, "type": message_type})
         .execute()
     )
-    print(response)
+    print("train our model request submit: ", response)
 
 
 if __name__ == "__main__":
