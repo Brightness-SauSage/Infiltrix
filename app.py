@@ -24,7 +24,14 @@ def predict():
     )
     print("message submit: ", response)
 
-    return jsonify({"prediction": prediction})
+    return jsonify(
+        {
+            "process": "homepage request",
+            "status": "success",
+            "message": message,
+            "prediction": prediction,
+        }
+    )
 
 
 @app.route("/api/train-model", methods=["POST"])
@@ -38,7 +45,14 @@ def train_model():
         .execute()
     )
     print("train our model request submit: ", response)
-    return 200
+    return jsonify(
+        {
+            "process": "train our model page request",
+            "status": "success",
+            "message": message,
+            "message_type": message_type,
+        }
+    )
 
 
 if __name__ == "__main__":
