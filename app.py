@@ -19,7 +19,7 @@ def predict():
 
     response = (
         supabase.table("homepage")
-        .insert({"input": message, "prediction": prediction})
+        .insert({"message": message, "prediction": prediction})
         .execute()
     )
     print("message submit: ", response)
@@ -34,7 +34,7 @@ def train_model():
     message_type = data["MessageType"]
     response = (
         supabase.table("train_our_model")
-        .insert({"input": message, "type": message_type})
+        .insert({"message": message, "message_type": message_type})
         .execute()
     )
     print("train our model request submit: ", response)
