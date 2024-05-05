@@ -31,7 +31,7 @@ def predict():
 def train_model():
     data = request.get_json(force=True)
     message = data["message"]
-    message_type = data["MessageType"]
+    message_type = data["message_type"]
     response = (
         supabase.table("train_our_model")
         .insert({"message": message, "message_type": message_type})
